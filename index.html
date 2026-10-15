@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pay Transaction Preview</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f6f8fc;font-family:Arial,sans-serif;color:#202124}
+.header{background:#fff;padding:18px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #eee}
+.google-icon{font-size:30px;font-weight:bold;color:#4285f4}
+.header h2{font-weight:normal;margin:0;font-size:22px}
+.container{max-width:440px;margin:20px auto;background:#fff;padding:25px 22px;border-radius:18px;box-shadow:0 3px 15px #0000000d}
+.center{text-align:center}
+.check{width:76px;height:76px;margin:5px auto 18px;border-radius:50%;background:#e6f4ea;color:#188038;font-size:43px;display:grid;place-items:center}
+h1{font-size:23px;margin:0 0 12px;color:#188038}
+.amount{font-size:43px;font-weight:bold;margin:24px 0}
+.avatar{width:52px;height:52px;background:#4285f4;color:#fff;border-radius:50%;margin:12px auto;display:grid;place-items:center;font-size:25px}
+.name{font-size:19px;font-weight:bold}
+.phone{color:#5f6368;margin-top:7px;font-size:14px}
+.date-time{color:#5f6368;font-size:13px;line-height:1.8;margin-top:20px}
+.notice{margin-top:22px;background:#e6f4ea;padding:15px;border-radius:12px;color:#188038;text-align:center;font-size:14px}
+.details{margin-top:28px;border-top:1px solid #eee;padding-top:22px}
+.details h3{font-size:17px;margin:0 0 12px}
+.row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #f1f3f4;font-size:13px}
+.row span:first-child{color:#5f6368}
+.row span:last-child{text-align:right;overflow-wrap:anywhere}
+.disclaimer{color:#777;text-align:center;font-size:10px;line-height:1.5;margin-top:14px}
+@media(max-width:480px){.container{margin:12px;border-radius:16px;padding:22px 18px}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="google-icon">G</div>
+  <h2>Pay Transaction Preview</h2>
+</header>
+
+<div class="container">
+  <div class="center">
+    <div class="check">✓</div>
+    <h1>Payment Successful</h1>
+    <div class="amount">₹100</div>
+    <div>Paid to</div>
+    <div class="avatar">L</div>
+    <div class="name">LNithish</div>
+    <div class="phone">+91 6382606242</div>
+
+    <div class="date-time">
+      <div>Date: <strong id="date"></strong></div>
+      <div>Time: <strong id="time"></strong></div>
+    </div>
+
+    <div class="notice">
+      Success status shown in this transaction preview
+    </div>
+  </div>
+
+  <div class="details">
+    <h3>Transaction Details</h3>
+    <div class="row"><span>Amount</span><span>₹100.00</span></div>
+    <div class="row"><span>Recipient</span><span>LNithish</span></div>
+    <div class="row"><span>Phone Number</span><span>6382606242</span></div>
+    <div class="row"><span>Transaction ID</span><span id="transactionId"></span></div>
+    <div class="row"><span>Payment Method</span><span>UPI preview</span></div>
+    <div class="row"><span>Status</span><span style="color:#188038;font-weight:bold">SUCCESS</span></div>
+
+    
+ 
+</div>
+
+<script>
+const openedAt = new Date();
+
+document.getElementById("date").textContent =
+  openedAt.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+
+document.getElementById("time").textContent =
+  openedAt.toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  });
+
+// Generate a random display ID and mask some characters.
+const randomPart = Array.from({length: 12}, () =>
+  Math.floor(Math.random() * 10).toString()
+).join("");
+
+const transactionId = "TXN" + randomPart;
+const maskedId =
+  transactionId.slice(0, 3) +
+  "XXXX" +
+  transactionId.slice(7);
+
+document.getElementById("transactionId").textContent = maskedId;
+</script>
+</body>
+</html>
